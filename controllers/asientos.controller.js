@@ -1,13 +1,13 @@
-const FotoPerfil = require("../models/fotoPerfil.model");
+const Asientos = require("../models/asientos.model");
 //listar
 exports.list = (req, res) => {
-  FotoPerfil.getAll((err, data) => {
+  Asientos.getAll((err, data) => {
     if (err)
       res.status(500).send({
         message: err.message || "Error al recuperar los datos",
       });
     else {
-      console.log(`FotoPerfil.list $(data)`);
+      console.log(`Asientos.list $(data)`);
       res.status(200).json(data);
     }
   });
@@ -20,13 +20,14 @@ exports.create = (req, res) => {
     });
   }
 
-  //Crear persona
-  const newFoto = new FotoPerfil({
-    id: req.body.id,
-    urlFoto: req.body.urlFoto,
+  //Crear asiento
+  const newAsientos = new Asientos({
+    idAsientos: req.body.idAsientos,
+    numero: req.body.numero,
+    seccion: req.body.seccion,
   });
 
-  FotoPerfil.create(newFoto, (err, data) => {
+  Asientos.create(newAsientos, (err, data) => {
     if (err)
       res.status(500).json({
         message: err.message || "Error al crear una Foto.",
@@ -37,7 +38,7 @@ exports.create = (req, res) => {
 
 //eliminar
 exports.eliminar = (req, res) => {
-  FotoPerfil.delete(req, (err, data) => {
+  Asientos.delete(req, (err, data) => {
     if (err)
       res.status(500).json({
         message: err.message || "Error al eliminar la foto :C",
@@ -47,7 +48,7 @@ exports.eliminar = (req, res) => {
 };
 //Actualizar
 exports.actualizar = (req, res) => {
-  FotoPerfil.update(req, (err, data) => {
+  Asientos.update(req, (err, data) => {
     if (err)
       res.status(500).json({
         message: err.message || "Error al actualizar la foto :C",

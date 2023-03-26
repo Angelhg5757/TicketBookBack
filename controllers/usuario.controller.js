@@ -16,13 +16,11 @@ exports.create = (req, res) => {
     nombre: req.body.nombre,
     apePat: req.body.apePat,
     apeMat: req.body.apeMat,
+    telefono: req.body.telefono,
     correo: req.body.correo || "test@gmail.com",
     password: req.body.password,
     fechaNac: req.body.fechaNac,
-    isActive: req.body.isActive,
-    idRoles: req.body.idRoles,
-    idSangre: req.body.idSangre,
-    sexo: req.body.sexo,
+    idRol: req.body.idRol,
   });
 
   Usuario.create(newUsuario, (err, data) => {
@@ -123,22 +121,21 @@ exports.login = async (req, res) => {
         const apeMat = usuario.apeMat;
         const correo = usuario.correo;
         const fechaNac = usuario.fechaNac;
-        const sangre = usuario.tipo;
-        if (usuario.idRoles == 1) {
+        if (usuario.idRol == 1) {
           return res.status(200).send({
-            // message: "Donador", 
-            idUsuario, nombre, apePat, apeMat, correo, fechaNac, sangre
+            // message: "Cliente", 
+            idUsuario, nombre, apePat, apeMat, correo, fechaNac
             
           });
-        } else if (usuario.idRoles == 2) {
+        } else if (usuario.idRol == 2) {
           return res.status(201).send({
-            // message: "Paciente", 
-            idUsuario, nombre, apePat, apeMat, correo, fechaNac, sangre
-          });
-        } else if ((usuario, idRoles == 3)) {
-          return res.status(202).send({
             // message: "Administrador", 
-            idUsuario, nombre, apePat, apeMat, correo, fechaNac, sangre
+            idUsuario, nombre, apePat, apeMat, correo, fechaNac
+          });
+        } else if ((usuario.idRol == 3)) {
+          return res.status(202).send({
+            // message: "SuperUsuario", 
+            idUsuario, nombre, apePat, apeMat, correo, fechaNac
           });
         }
       } else {

@@ -1,13 +1,13 @@
-const Perfil = require('../models/perfil.model');
+const Eventos = require('../models/eventos.model');
 //listar
 exports.listar = (req, res) => {
-    Perfil.getAll((err, data) => {
+    Eventos.getAll((err, data) => {
       if (err)
         res.status(500).send({
           message: err.message || "Error al recuperar los datos",
         });
       else {
-        console.log(`Perfil.list $(data)`);
+        console.log(`Eventos.list $(data)`);
         res.status(200).json(data);
       }
     });
@@ -20,37 +20,40 @@ exports.create = (req, res) => {
       });
     }
   
-    const newPerfil = new Perfil({
-      idPerfil: req.body.idPerfil,
-      userTag: req.body.userTag,
-      idFoto: req.body.idFoto,
-      idUsuario: req.body.idUsuario,
+    const newEventos = new Eventos({
+      idEventos: req.body.idEventos,
+      inmueble: req.body.inmueble,
+      ciudad: req.body.ciudad,
+      fecha: req.body.fecha,
+      horario: req.body.horario,
+      nombre: req.body.nombre,
+      descripcion: req.body.descripcion,
     });
   
-    Perfil.create(newPerfil, (err, data) => {
+    Eventos.create(newEventos, (err, data) => {
       if (err)
         res.status(500).json({
-          message: err.message || "Error al crear un Perfil.",
+          message: err.message || "Error al crear un Evento.",
         });
       else res.status(200).json(data);
     });
   };
 //Actualizar
 exports.actualizar = (req, res) => {
-    Perfil.update(req, (err, perfil) => {
+    Eventos.update(req, (err, eventos) => {
         if(err){
             res.status(500).send({
-                message: err.message || "Error al actualizar perfil"
+                message: err.message || "Error al actualizar"
             })
         }else{
-            console.log(perfil);
+            console.log(eventos);
             res.status(200).send(data);
         }
     });
 };
 //Borrar
 exports.eliminar = (req, res) => {
-  Perfil.delete(req, (err, data) => {
+  Eventos.delete(req, (err, data) => {
     if (err)
       res.status(500).json({
         message: err.message || "Error al eliminar :C",

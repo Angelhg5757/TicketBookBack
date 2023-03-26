@@ -1,17 +1,12 @@
 module.exports = (app) => {
-    // const persona = require("../controllers/persona.controller");
-    // const publicacion = require("../controllers/publicacion.controller.js");
-    // const comentario = require("../controllers/comentario.controller");
     const usuario = require("../controllers/usuario.controller");
-    const publicacion = require("../controllers/publicacion.controller");
-    const imagen = require("../controllers/imagen.controller");
-    const redes = require("../controllers/redes.controller");
-    const sangre = require("../controllers/sangre.controller");
+    const asientos = require("../controllers/asientos.controller");
+    const boletos = require("../controllers/boletos.controller");
     const roles = require("../controllers/roles.controller");
-    const perfil = require("../controllers/perfil.controller");
-    const redesHU = require("../controllers/redesHU.controller");
-    const foto = require("../controllers/fotoPerfil.controller");
-    const contacto = require("../controllers/contacto.controller");
+    const usuarioHB = require("../controllers/usuarioHB.controller");
+    const eventos = require("../controllers/eventos.controller");
+    const tarjeta = require("../controllers/tarjeta.controller");
+
     var router = require("express").Router();
     
     //router.post("/loginUser", usuario.postLogin);
@@ -22,66 +17,40 @@ module.exports = (app) => {
     router.post("/usuario/crear", usuario.create);
     router.put("/usuario/actualizarStatus/:id", usuario.actualizarStatus);
     router.delete("/usuario/eliminar/:id", usuario.borrar);
-
     router.post("/usuario/log", usuario.login);
 
-    //Rutas de publicacion
-    router.get("/publicacion/listar", publicacion.list);
-    router.post("/publicacion/crear", publicacion.create);
-    router.put("/publicacion/actualizar/:id", publicacion.actualizarStatus);
-    router.delete("/publicacion/eliminar/:id", publicacion.eliminar);
+    //Rutas de asientos
+    router.get("/asientos/listar", asientos.list);
+    router.post("/asientos/crear", asientos.create);
+    router.put("/asientos/actualizar/:id", asientos.actualizar);
+    router.delete("/asientos/eliminar/:id", asientos.eliminar);
 
-    //Rutas de imagen
-    router.get("/imagen/listar", imagen.list);
-    router.post("/imagen/crear", imagen.create);
-    router.put("/imagen/actualizar/:id", imagen.actualizar);
-    router.delete("/imagen/eliminar/:id", imagen.eliminar);
-
-    //Rutas de sangre
-    router.get("/sangre/listar", sangre.list);
+    //Rutas de boletos
+    router.get("/boletos/listar", boletos.list);
+    router.post("/boletos/crear", boletos.create);
+    router.put("/boletos/actualizar/:id", boletos.actualizar);
+    router.delete("/boletos/eliminar/:id", boletos.eliminar);
 
     //Rutas de roles
     router.get("/roles/listar", roles.list);
-
-    //Rutas de redes
-    router.get("/redes/listar", redes.list);
     
-    //Rutas de Foto de perfil
-    router.get("/foto/listar", foto.list);
-    router.post("/foto/crear", foto.create);
-    router.put("/foto/actualizar/:id", foto.actualizar);
-    router.delete("/foto/eliminar/:id", foto.eliminar);
+    //Rutas de eventos
+    router.get("/eventos/listar", eventos.listar);
+    router.post("/eventos/crear", eventos.create);
+    router.put("/eventos/actualizar/:id", eventos.actualizar);
+    router.delete("/eventos/eliminar/:id", eventos.eliminar);
 
-    //Rutas de perfil
-    router.get("/perfil/listar", perfil.listar);
-    router.post("/perfil/crear", perfil.create);
-    router.put("/perfil/actualizar/:id", perfil.actualizar);
-    router.delete("/perfil/eliminar/:id", perfil.eliminar);
+    //Rutas de usuario_has_boletos
+    router.get("/usuarioH/listar", usuarioHB.listar);
+    router.post("/usuarioH/crear", usuarioHB.create);
+    router.put("/usuarioH/actualizar/:id", usuarioHB.actualizar);
+    router.delete("/usuarioH/eliminar/:id", usuarioHB.borrar);
 
-    //Rutas de redes_has_usuario
-    router.get("/redesH/listar", redesHU.listar);
-    router.post("/redesH/crear", redesHU.create);
-    router.put("/redesH/actualizar/:id", redesHU.actualizar);
-    router.delete("/redesH/eliminar/:id", redesHU.borrar);
-
-    router.get("/contacto/listar", contacto.listar);
-    router.get("/contacto/listarUser/:id", contacto.listIDUser);
-    router.post("/contacto/crear", contacto.create);
-    router.put("/contacto/actualizar/:id", contacto.actualizar);
-    router.delete("/contacto/eliminar/:idContacto", contacto.eliminar);
-
-    // router.post("/persona/validar", persona.valida);
-    // router.get("/todo", persona.todo);
-    // router.delete("/persona/borrarcomentarios/:entrada", persona.borrarComentarios);
-
-    // router.get("/publicacion", publicacion.list);
-    // router.post("/publicacion", publicacion.create);
-    // router.get("/publicacion/:id", publicacion.listID);
-    // router.put("/publicacion/:id", publicacion.actualiza);
-    // router.delete("/publicacion/:id", publicacion.borrar);
-
-    // router.get("/publicacion/publicacionesporsufijo/:c", publicacion.listPubli);
-    // router.get("/publicacion/publicacionesporsufijo/:k", publicacion.listPubli);
+    router.get("/tarjeta/listar", tarjeta.listar);
+    router.get("/tarjeta/listarUser/:id", tarjeta.listIDUser);
+    router.post("/tarjeta/crear", tarjeta.create);
+    router.put("/tarjeta/actualizar/:id", tarjeta.actualizar);
+    router.delete("/tarjeta/eliminar/:idTarjeta", tarjeta.eliminar);
 
     app.use(router);
 };

@@ -1,19 +1,19 @@
-const Contacto = require("../models/contacto.model");
+const Tarjeta = require("../models/tarjeta.model");
 //listar
 exports.listar = (req, res) => {
-  Contacto.getAll((err, data) => {
+  Tarjeta.getAll((err, data) => {
     if (err)
       res.status(500).send({
         message: err.message || "Error al recuperar los datos",
       });
     else {
-      console.log(`Contacto.list $(data)`);
+      console.log(`Tarjeta.list $(data)`);
       res.status(200).json(data);
     }
   });
 };
 exports.listIDUser = (req, res) => {
-  Contacto.getByIdUser(req, (err, data) => {
+  Tarjeta.getByIdUser(req, (err, data) => {
     if (err)
       res.status(500).send({
         message: err.message || "Error al recuperar los datos",
@@ -32,14 +32,16 @@ exports.create = (req, res) => {
     });
   }
 
-  const newContacto = new Contacto({
-    idContacto: req.body.idContacto,
-    telefono: req.body.telefono,
-    correoPublico: req.body.correoPublico,
+  const newTarjeta = new Tarjeta({
+    idTarjeta: req.body.idTarjeta,
+    nombreTitular: req.body.nombreTitular,
+    numFrente: req.body.numFrente,
+    fechaExp: req.body.fechaExp,
+    cvv: req.body.cvv,
     idUsuario: req.body.idUsuario,
   });
 
-  Contacto.create(newContacto, (err, data) => {
+  Tarjeta.create(newTarjeta, (err, data) => {
     if (err)
       res.status(500).json({
         message: err.message || "Error al crear.",
@@ -50,7 +52,7 @@ exports.create = (req, res) => {
 
 //eliminar
 exports.eliminar = (req, res) => {
-  Contacto.delete(req, (err, data) => {
+  Tarjeta.delete(req, (err, data) => {
     if (err)
       res.status(500).json({
         message: err.message || "Error al eliminar :C",
@@ -61,7 +63,7 @@ exports.eliminar = (req, res) => {
 
 //Actualizar
 exports.actualizar = (req, res) => {
-  Contacto.update(req, (err, data) => {
+  Tarjeta.update(req, (err, data) => {
     if (err)
       res.status(500).json({
         message: err.message || "Error al actualizar :C",

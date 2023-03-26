@@ -1,4 +1,4 @@
-const RedesHU = require("../models/redesHU.model");
+const RedesHU = require("../models/usuarioHB.model");
 //listar
 exports.listar = (req, res) => {
   RedesHU.getAll((err, data) => {

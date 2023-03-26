@@ -1,7 +1,7 @@
 const sql = require("./db.js");
 
 const Roles = function (roles) {
-  this.idRoles = roles.idRoles;
+  this.idRol = roles.idRol;
   this.nombre = roles.nombre;
 };
 

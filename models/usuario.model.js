@@ -42,7 +42,7 @@ Usuario.create = (usuario, result) => {
       usuario.correo,
       hashedPassword,
       usuario.fechaNac,
-      usuario.idRoles,
+      usuario.idRol,
     ];
     sql.query(insertUserQuery, insertUserValues, (err, res) => {
       if (err) {
@@ -166,14 +166,13 @@ Usuario.delete = (req, result) => {
   );
 };
 
-// //Obtener usuario por correo
-// Usuario.findOne = async (correo) => {
-//   const query = `SELECT "Usuario".*, "TipoSangre"."tipo" FROM "Usuario" INNER JOIN "TipoSangre" ON "TipoSangre"."idSangre" = "Usuario"."idSangre" WHERE "Usuario"."correo" = $1 \ 
-//   AND "TipoSangre"."idSangre" = "Usuario"."idSangre"`; //AND "isActive" = true
-//   const values = [correo];
-//   const { rows } = await sql.query(query, values);
-//   return rows[0];
-// };
+//Obtener usuario por correo
+Usuario.findOne = async (correo) => {
+  const query = `SELECT "Usuario".* FROM "Usuario" WHERE "Usuario"."correo" = $1`; //AND "isActive" = true
+  const values = [correo];
+  const { rows } = await sql.query(query, values);
+  return rows[0];
+};
 
 
 module.exports = Usuario;

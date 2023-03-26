@@ -1,18 +1,18 @@
-const Imagen = require("../models/imagen.model");
-//Listar imagenes
+const Boletos = require("../models/boletos.model");
+//Listar Boletos
 exports.list = (req, res) => {
-  Imagen.getAll((err, data) => {
+  Boletos.getAll((err, data) => {
     if (err)
       res.status(500).send({
         message: err.message || "Error al recuperar los datos",
       });
     else {
-      console.log(`Imagen.list $(data)`);
+      console.log(`Boletos.list $(data)`);
       res.status(200).json(data);
     }
   });
 };
-//Crear imagen
+//Crear Boletos
 exports.create = (req, res) => {
   if (!req.body) {
     res.status(404).send({
@@ -20,43 +20,43 @@ exports.create = (req, res) => {
     });
   }
 
-  const newImagen = new Imagen({
-    idImagen: req.body.idImagen,
-    urlImagen: req.body.urlImagen,
+  const newBoletos = new Boletos({
+    idBoletos: req.body.idBoletos,
+    idAsientos: req.body.idBoletos,
+    descripcion: req.body.descripcion,
+    idEventos: req.body.idEventos,
   });
 
-  Imagen.create(newImagen, (err, data) => {
+  Boletos.create(newBoletos, (err, data) => {
     if (err)
       res.status(500).json({
-        message: err.message || "Error al crear una Imagen.",
+        message: err.message || "Error al crear Boletos.",
       });
     else res.status(200).json(data);
   });
 };
-//Eliminar imagen
+//Eliminar Boletos
 exports.eliminar = (req, res) => {
-  Imagen.delete(req, (err, data) => {
+  Boletos.delete(req, (err, data) => {
     if (err)
       res.status(500).send({
-        message: err.message || "Error al eliminar la imagen",
+        message: err.message || "Error al eliminar Boletos",
       });
     else res.status(200).json(data);
   });
 };
-//Actualizar imagen
+//Actualizar Boletos
 exports.actualizar = (req, res) => {
-  Imagen.update(req, (err, data) => {
+  Boletos.update(req, (err, data) => {
     if (err)
       res.status(500).send({
-        message: err.message || "Error al actualizar la imagen",
+        message: err.message || "Error al actualizar Boletos",
       });
     else res.status(200).json(data);
   });
 };
 
-// const db = require("../models/db");
-// const Imagen = db.Imagen;
-// const Op = db.Sequelize.Op;
+
 
 // exports.findAll = (req, res) => {
 //     Imagen.findAll()
