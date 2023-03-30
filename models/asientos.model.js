@@ -2,14 +2,14 @@ const sql = require("./db.js");
 
 //Constructor
 const Asientos = function (asientos) {
-  this.idAsientos = asientos.idAsientos;
+  //this.idAsientos = asientos.idAsientos;
   this.numero = asientos.numero;
-  this.seccion = asientos.seccion;
+  this.fila = asientos.fila;
 };
 
 //Obtener 
 Asientos.getAll = (result) => {
-  let query = 'SELECT * FROM "Asientos"';
+  let query = 'SELECT * FROM "asientos"';
 
   sql.query(query, (err, res) => {
     if (err) {
@@ -24,8 +24,8 @@ Asientos.getAll = (result) => {
 };
 //Crear 
 Asientos.create = (asientos, result) => {
-  const text = 'INSERT INTO "Asientos" ("numero", "seccion") VALUES ($1, $2)';
-  const values = [asientos.numero, asientos.seccion];
+  const text = 'INSERT INTO "asientos" ("numero", "fila") VALUES ($1, $2)';
+  const values = [asientos.numero, asientos.fila];
   sql.query(text, values, (err, res) => {
     if (err){
       console.log("Error al crear asiento: ", err);
@@ -40,7 +40,7 @@ Asientos.create = (asientos, result) => {
 Asientos.delete = (req, result) => {
   const id = parseInt(req.params.id);
 
-  sql.query('DELETE FROM "Asientos" WHERE "idAsientos" = $1', [id], (err, res) => {
+  sql.query('DELETE FROM "asientos" WHERE "idAsientos" = $1', [id], (err, res) => {
     if (err) {
       console.log("Error: ", err);
       result(err, null);
@@ -50,16 +50,31 @@ Asientos.delete = (req, result) => {
   });
 };
 //Actualizar
-Asientos.update = (asientos, result) => {
-  const text = 'UPDATE "Asientos" SET "numero" = $1, "seccion" = $2 WHERE "idAsientos" = $3';
-  const values = [asientos.numero, asientos.seccion, asientos.idAsientos];
-  sql.query(text, values, (err, res) => {
-    if (err){
-      console.log("Error al actualizar: ", err);
+Asientos.update = (req, result) => {
+  // const id = parseInt(req.params.id);
+  // const text = 'UPDATE "asientos" SET "numero" = $1, "fila" = $2 WHERE "idAsientos" = $3';
+  // const values = [req.body.numero, req.body.fila, id];
+  // sql.query(text, values, (err, res) => {
+  //   if (err){
+  //     console.log("Error al actualizar: ", err);
+  //     result(err, null);
+  //     return;
+  //   }
+  //   console.log ("Actualizado!", res);
+  //   result(null, res);
+  // });
+
+  const id = parseInt(req.params.id);
+  const text =
+  'UPDATE "asientos" SET "numero" = $1, "fila" = $2 WHERE "idAsientos" = $3';
+  const values = [req.body.numero, req.body.fila, id];
+  sql.query(text, values, function (err, res) {
+    if (err) {
+      console.log("Error al actualizar el evento", err);
       result(err, null);
       return;
     }
-    console.log ("Actualizado!", res);
+    console.log("Evento actualizado");
     result(null, res);
   });
 };

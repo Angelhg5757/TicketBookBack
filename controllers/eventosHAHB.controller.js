@@ -1,10 +1,10 @@
-const RedesHU = require("../models/usuarioHB.model");
+const EventosHAHB = require("../models/eventosHAHB.model");
 //listar
 exports.listar = (req, res) => {
-  RedesHU.getAll((err, data) => {
+  EventosHAHB.getAll((err, data) => {
     if (err) {
       res.status(500).send({
-        message: err.message || "Error al listar las RedesHU",
+        message: err.message || "Error al listar los Eventos",
       });
     } else {
       res.status(200).send(data);
@@ -20,25 +20,27 @@ exports.create = (req, res) => {
   }
 
   //Crear persona
-  const newRedesHU = new RedesHU({
-    idRedes: req.body.idRedes,
-    nombreRed: req.body.nombreRed,
+  const newEventosHAHB = new EventosHAHB({
+    idEventos: req.body.idEventos,
+    idAsientos: req.body.idAsientos,
+    idBoletos: req.body.idBoletos,
+
   });
 
-  RedesHU.create(newRedesHU, (err, data) => {
+  EventosHAHB.create(newEventosHAHB, (err, data) => {
     if (err)
       res.status(500).json({
-        message: err.message || "Error al crear la Red Social.",
+        message: err.message || "Error al crear",
       });
     else res.status(200).json(data);
   });
 };
 //Actualizar
 exports.actualizar = (req, res) => {
-  RedesHU.update(req, (err, data) => {
+  EventosHAHB.update(req, (err, data) => {
     if (err) {
       res.status(500).send({
-        message: err.message || "Error al actualizar el redes",
+        message: err.message || "Error al actualizar",
       });
     } else {
       res.status(200).send(data);
@@ -47,10 +49,10 @@ exports.actualizar = (req, res) => {
 };
 //borrar
 exports.borrar = (req, res) => {
-  RedesHU.delete(req, (err, data) => {
+  EventosHAHB.delete(req, (err, data) => {
     if (err) {
       res.status(500).send({
-        message: err.message || "Error al borrar el redes",
+        message: err.message || "Error al borrar",
       });
     } else {
       res.status(200).send(data);

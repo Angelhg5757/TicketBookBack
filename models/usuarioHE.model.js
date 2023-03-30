@@ -1,11 +1,11 @@
 const sql = require('./db.js');
 //Constructor
-const UsuarioBoletos = function(usuarioBoletos){
-    this.idUsuario = usuarioBoletos.idUsuario;
-    this.idBoletos = usuarioBoletos.idBoletos;
+const UsuarioEventos = function(usuarioEventos){
+    this.idUsuario = usuarioEventos.idUsuario;
+    this.idEventos = usuarioEventos.idEventos;
 }
 //Listar 
-UsuarioBoletos.getAll = (result)=>{
+UsuarioEventos.getAll = (result)=>{
     const text = 'SELECT *FROM "Usuario_has_Boleto"';
     sql.query(text, (err, res)=>{
         if(err){
@@ -18,9 +18,9 @@ UsuarioBoletos.getAll = (result)=>{
     });
 };
 //Crear redes
-UsuarioBoletos.create = (usuarioBoletos, result)=>{
-    const text = 'INSERT INTO "Usuario_has_Boleto" ("idUsuario", "idBoletos") VALUES ($1,$2)';
-    const values = [usuarioBoletos.idUsuario, usuarioBoletos.idBoletos];
+UsuarioEventos.create = (usuarioEventos, result)=>{
+    const text = 'INSERT INTO "Usuario_has_Boleto" ("idUsuario", "idEventos") VALUES ($1,$2)';
+    const values = [usuarioEventos.idUsuario, usuarioEventos.idEventos];
     sql.query(text, values, (err, res)=>{
         if(err){
             console.log("error al crear: ", err);
@@ -32,9 +32,9 @@ UsuarioBoletos.create = (usuarioBoletos, result)=>{
     });
 };
 //Eliminar redes
-UsuarioBoletos.delete = (usuarioBoletos, result)=>{
-    const text = 'DELETE FROM "Usuario_has_Boleto" WHERE "idUsuario" = $1 AND "idBoletos" = $2';
-    const values = [usuarioBoletos.idUsuario, usuarioBoletos.idBoletos];
+UsuarioEventos.delete = (usuarioEventos, result)=>{
+    const text = 'DELETE FROM "Usuario_has_Boleto" WHERE "idUsuario" = $1 AND "idEventos" = $2';
+    const values = [usuarioEventos.idUsuario, usuarioEventos.idBoletos];
     sql.query(text, values, (err, res)=>{
         if(err){
             console.log("error al eliminar: ", err);
@@ -46,9 +46,9 @@ UsuarioBoletos.delete = (usuarioBoletos, result)=>{
     });
 };
 //Actualizar redes
-UsuarioBoletos.update = (usuarioBoletos, result)=>{
-    const text = 'UPDATE "Usuario_has_Boleto" SET "idBoletos" = $2 WHERE "idUsuario" = $1';
-    const values = [usuarioBoletos.idBoletos, usuarioBoletos.idUsuario];
+UsuarioEventos.update = (usuarioEventos, result)=>{
+    const text = 'UPDATE "Usuario_has_Boleto" SET "idEventos" = $2 WHERE "idUsuario" = $1';
+    const values = [usuarioEventos.idEventos, usuarioEventos.idUsuario];
     sql.query(text, values, (err, res)=>{
         if(err){
             console.log("error al actualizar: ", err);
@@ -60,4 +60,4 @@ UsuarioBoletos.update = (usuarioBoletos, result)=>{
     });
 };
 
-module.exports = UsuarioBoletos;
+module.exports = UsuarioEventos;

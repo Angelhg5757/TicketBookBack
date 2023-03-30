@@ -7,8 +7,8 @@ exports.listar = (req, res) => {
         message: err.message || "Error al recuperar los datos",
       });
     else {
-      console.log(`Tarjeta.list $(data)`);
-      res.status(200).json(data);
+      //console.log(`Tarjeta.list $(data)`);
+      res.status(200).json(data.rows);
     }
   });
 };
@@ -37,7 +37,7 @@ exports.create = (req, res) => {
     nombreTitular: req.body.nombreTitular,
     numFrente: req.body.numFrente,
     fechaExp: req.body.fechaExp,
-    cvv: req.body.cvv,
+    
     idUsuario: req.body.idUsuario,
   });
 

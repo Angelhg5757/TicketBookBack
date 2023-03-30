@@ -1,13 +1,13 @@
-const Asientos = require("../models/asientos.model");
+const Secciones = require("../models/secciones.model");
 //listar
 exports.list = (req, res) => {
-  Asientos.getAll((err, data) => {
+  Secciones.getAll((err, data) => {
     if (err)
       res.status(500).send({
         message: err.message || "Error al recuperar los datos",
       });
     else {
-      //console.log(`Asientos.list $(data)`);
+      //console.log(`Secciones.list $(data)`);
       res.status(200).json(data.rows);
     }
   });
@@ -21,24 +21,25 @@ exports.create = (req, res) => {
   }
 
   //Crear asiento
-  const newAsientos = new Asientos({
-    //idAsientos: req.body.idAsientos,
-    numero: req.body.numero,
-    fila: req.body.fila,
+  const newSecciones = new Secciones({
+    idSeccion: req.body.idSeccion,
+    nombre: req.body.nombre,
+    precio: req.body.precio,
+    idInmueble: req.body.idInmueble
   });
 
-  Asientos.create(newAsientos, (err, data) => {
+  Secciones.create(newSecciones, (err, data) => {
     if (err)
       res.status(500).json({
-        message: err.message || "Error al crear.",
+        message: err.message || "Error al crear",
       });
-    else res.status(200).json(data);
+    else res.status(200).json(data.rowCount);
   });
 };
 
 //eliminar
 exports.eliminar = (req, res) => {
-  Asientos.delete(req, (err, data) => {
+  Secciones.delete(req, (err, data) => {
     if (err)
       res.status(500).json({
         message: err.message || "Error al eliminar :C",
@@ -48,13 +49,11 @@ exports.eliminar = (req, res) => {
 };
 //Actualizar
 exports.actualizar = (req, res) => {
-  Asientos.update(req, (err, data) => {
-    if (err) {
+  Secciones.update(req, (err, data) => {
+    if (err)
       res.status(500).json({
-        message: err.message || "Error al actualizar.",
+        message: err.message || "Error al actualizar :C",
       });
-    } else {
-      res.status(200).json(data);
-    }
+    else res.json(data);
   });
 };

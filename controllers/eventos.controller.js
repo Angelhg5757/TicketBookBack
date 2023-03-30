@@ -22,7 +22,8 @@ exports.create = (req, res) => {
   
     const newEventos = new Eventos({
       idEventos: req.body.idEventos,
-      inmueble: req.body.inmueble,
+      idPrecio: req.body.idPrecio,
+      idInmueble: req.body.idInmueble,
       ciudad: req.body.ciudad,
       fecha: req.body.fecha,
       horario: req.body.horario,
@@ -40,15 +41,14 @@ exports.create = (req, res) => {
   };
 //Actualizar
 exports.actualizar = (req, res) => {
-    Eventos.update(req, (err, eventos) => {
-        if(err){
-            res.status(500).send({
-                message: err.message || "Error al actualizar"
-            })
-        }else{
-            console.log(eventos);
-            res.status(200).send(data);
-        }
+    Eventos.update(req, (err, data) => {
+      if (err) {
+        res.status(500).json({
+          message: err.message || "Error al actualizar.",
+        });
+      } else {
+        res.status(200).json(data);
+      }
     });
 };
 //Borrar

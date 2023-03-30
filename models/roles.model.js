@@ -6,7 +6,7 @@ const Roles = function (roles) {
 };
 
 Roles.getAll = (result) => {
-  let query = 'SELECT * FROM "Roles"';
+  let query = 'SELECT * FROM "roles"';
 
   sql.query(query, (err, res) => {
     if (err) {

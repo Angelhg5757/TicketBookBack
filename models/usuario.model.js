@@ -14,7 +14,7 @@ const Usuario = function (usuario) {
 };
 
 Usuario.create = (usuario, result) => {
-  const checkExistingEmailQuery = 'SELECT COUNT(*) as count FROM "Usuario" WHERE correo = $1';
+  const checkExistingEmailQuery = 'SELECT COUNT(*) as count FROM "usuario" WHERE correo = $1';
   const values = [usuario.correo];
 
   // Verificar si el correo ya existe en la base de datos
@@ -31,7 +31,7 @@ Usuario.create = (usuario, result) => {
       return;
     }
     // Si el correo no existe, procedemos a crear el nuevo usuario
-    const insertUserQuery = 'INSERT INTO "Usuario" ("nombre", "apePat", "apeMat", "telefono", "correo", "password", "fechaNac", "idRol") VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+    const insertUserQuery = 'INSERT INTO "usuario" ("nombre", "apePat", "apeMat", "telefono", "correo", "password", "fechaNac", "idRol") VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
     const hashedPassword = bcrypt.hashSync(usuario.password, 10);
 
     const insertUserValues = [
@@ -58,7 +58,7 @@ Usuario.create = (usuario, result) => {
 
 //Obtener
 Usuario.getAll = (result) => {
-  let query = 'SELECT * FROM "Usuario"';
+  let query = 'SELECT * FROM "usuario"';
 
   sql.query(query, (err, res) => {
     if (err) {
@@ -77,7 +77,7 @@ Usuario.getById = (req, result) => {
   const id = req.params.id;
 
   sql.query(
-    'SELECT * FROM "Usuario" WHERE "idUsuario" = $1',
+    'SELECT * FROM "usuario" WHERE "idUsuario" = $1',
     [id],
     (err, res) => {
       if (err) {
@@ -104,7 +104,7 @@ Usuario.update = (req, result) => {
   } = req.body;
 
   sql.query(
-    'UPDATE "Usuario" SET "nombre" = $1, "apePat" = $2, "apeMat" = $3, "telefono" = $4, "correo" = $5, "password" = $6, "fechaNac" = $7, "idRol" = $8 WHERE "idUsuario" = $9',
+    'UPDATE "usuario" SET "nombre" = $1, "apePat" = $2, "apeMat" = $3, "telefono" = $4, "correo" = $5, "password" = $6, "fechaNac" = $7, "idRol" = $8 WHERE "idUsuario" = $9',
     [
       nombre,
       apePat,
@@ -153,7 +153,7 @@ Usuario.delete = (req, result) => {
   const id = req.params.id;
 
   sql.query(
-    'DELETE FROM "Usuario" WHERE "idUsuario" = $1',
+    'DELETE FROM "usuario" WHERE "idUsuario" = $1',
     [id],
     (err, res) => {
       if (err) {
@@ -168,7 +168,7 @@ Usuario.delete = (req, result) => {
 
 //Obtener usuario por correo
 Usuario.findOne = async (correo) => {
-  const query = `SELECT "Usuario".* FROM "Usuario" WHERE "Usuario"."correo" = $1`; //AND "isActive" = true
+  const query = `SELECT "usuario".* FROM "usuario" WHERE "usuario"."correo" = $1`; //AND "isActive" = true
   const values = [correo];
   const { rows } = await sql.query(query, values);
   return rows[0];

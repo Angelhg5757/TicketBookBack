@@ -6,14 +6,13 @@ const Tarjeta = function (tarjeta) {
   this.nombreTitular = tarjeta.nombreTitular;
   this.numFrente = tarjeta.numFrente;
   this.fechaExp = tarjeta.fechaExp;
-  this.cvv = tarjeta.cvv;
   this.idUsuario = tarjeta.idUsuario;
 };
 
 //Crear tarjeta
 Tarjeta.create = (tarjeta, result) => {
-  const text = 'INSERT INTO "Tarjeta" ("nombreTitular", "numFrente", "fechaExp", "cvv", "idUsuario") VALUES ($1,$2,$3,$4,$5)';
-  const values = [tarjeta.nombreTitular, tarjeta.numFrente, tarjeta.fechaExp, tarjeta.cvv, tarjeta.idUsuario];
+  const text = 'INSERT INTO "tarjeta" ("nombreTitular", "numFrente", "fechaExp", "idUsuario") VALUES ($1,$2,$3,$4)';
+  const values = [tarjeta.nombreTitular, tarjeta.numFrente, tarjeta.fechaExp, tarjeta.idUsuario];
   sql.query(text, values, (err, res) => {
     if (err){
       console.log("Error al crear: ", err);
@@ -27,7 +26,7 @@ Tarjeta.create = (tarjeta, result) => {
 
 //Obtener Tarjeta
 Tarjeta.getAll = (result) => {
-  let query = 'SELECT * FROM "Tarjeta"';
+  let query = 'SELECT * FROM "tarjeta"';
 
   sql.query(query, (err, res) => {
     if (err) {
@@ -45,7 +44,7 @@ Tarjeta.getByIdUser = (req, result) => {
   const id = req.params.id;
 
   sql.query(
-    'SELECT * FROM "Tarjeta" WHERE "idTarjeta" = $1',
+    'SELECT * FROM "tarjeta" WHERE "idTarjeta" = $1',
     [id],
     (err, res) => {
       if (err) {
@@ -62,7 +61,7 @@ Tarjeta.getByIdUser = (req, result) => {
 Tarjeta.delete = (req, result) => {
   const id = req.params.idTarjeta;
 
-  sql.query('DELETE FROM "Tarjeta" WHERE "idTarjeta" = $1', [id], (err, res) => {
+  sql.query('DELETE FROM "tarjeta" WHERE "idTarjeta" = $1', [id], (err, res) => {
     if (err) {
       console.log("Error: ", err);
       result(err, null);
@@ -74,11 +73,11 @@ Tarjeta.delete = (req, result) => {
 //Actualizar 
 Tarjeta.update = (req, result) => {
   const id = parseInt(req.params.id);
-  const { nombreTitular, numFrente, fechaExp, cvv, idUsuario } = req.body;
+  const { nombreTitular, numFrente, fechaExp, idUsuario } = req.body;
 
   sql.query(
-    'UPDATE "Tarjeta" SET "nombreTitular" = $1, "numFrente" = $2, "fechaExp" = $3, "cvv" = $4, "idUsuario" = $5 WHERE "idTarjeta" = $4',
-    [nombreTitular, numFrente, fechaExp, cvv, idUsuario, id],
+    'UPDATE "tarjeta" SET "nombreTitular" = $1, "numFrente" = $2, "fechaExp" = $3, "idUsuario" = $4 WHERE "idTarjeta" = $5',
+    [nombreTitular, numFrente, fechaExp, idUsuario, id],
     (err, res) => {
       if (err) {
         console.log("Error: ", err);

@@ -3,9 +3,13 @@ module.exports = (app) => {
     const asientos = require("../controllers/asientos.controller");
     const boletos = require("../controllers/boletos.controller");
     const roles = require("../controllers/roles.controller");
-    const usuarioHB = require("../controllers/usuarioHB.controller");
+    const usuarioHB = require("../controllers/usuarioHE.controller");
     const eventos = require("../controllers/eventos.controller");
     const tarjeta = require("../controllers/tarjeta.controller");
+    const inmuebles = require("../controllers/inmuebles.controller");
+    const precio = require("../controllers/precio.controller");
+    const secciones = require("../controllers/secciones.controller");
+    const eventoHAHB = require("../controllers/eventosHAHB.controller");
 
     var router = require("express").Router();
     
@@ -15,6 +19,7 @@ module.exports = (app) => {
     router.get("/usuario/listar", usuario.list);
     router.get("/usuario/listar/:id", usuario.listID);
     router.post("/usuario/crear", usuario.create);
+    router.put("/usuario/actualizar/:id", usuario.actualizar);
     router.put("/usuario/actualizarStatus/:id", usuario.actualizarStatus);
     router.delete("/usuario/eliminar/:id", usuario.borrar);
     router.post("/usuario/log", usuario.login);
@@ -28,8 +33,10 @@ module.exports = (app) => {
     //Rutas de boletos
     router.get("/boletos/listar", boletos.list);
     router.post("/boletos/crear", boletos.create);
-    router.put("/boletos/actualizar/:id", boletos.actualizar);
-    router.delete("/boletos/eliminar/:id", boletos.eliminar);
+    router.get("/miseventos/:id", boletos.usuarioporboleto);
+    router.get("/boletosEvento/:id", boletos.boletoporevento);
+    //router.put("/boletos/actualizar/:id", boletos.actualizar);
+    //router.delete("/boletos/eliminar/:id", boletos.eliminar);
 
     //Rutas de roles
     router.get("/roles/listar", roles.list);
@@ -51,6 +58,27 @@ module.exports = (app) => {
     router.post("/tarjeta/crear", tarjeta.create);
     router.put("/tarjeta/actualizar/:id", tarjeta.actualizar);
     router.delete("/tarjeta/eliminar/:idTarjeta", tarjeta.eliminar);
+
+    router.get("/inmuebles/listar", inmuebles.listar);
+    router.post("/inmuebles/crear", inmuebles.create);
+    // router.put("/inmuebles/actualizar/:id", inmuebles.actualizar);
+    // router.delete("/inmuebles/eliminar/:id", inmuebles.eliminar);
+
+    router.get("/precio/listar", precio.listar);
+    // router.post("/precio/crear", precio.create);
+    // router.put("/precio/actualizar/:id", precio.actualizar);
+    // router.delete("/precio/eliminar/:id", precio.eliminar);
+
+    router.get("/eventoHAHB/listar", eventoHAHB.listar);
+    router.post("/eventoHAHB/crear", eventoHAHB.create);
+    router.put("/eventoHAHB/actualizar/:id", eventoHAHB.actualizar);
+    router.delete("/eventoHAHB/eliminar/:id", eventoHAHB.borrar);
+
+    router.get("/secciones/listar", secciones.list);
+    router.post("/secciones/crear", secciones.create);
+    router.put("/secciones/actualizar/:id", secciones.actualizar);
+    router.delete("/secciones/eliminar/:id", secciones.eliminar);
+
 
     app.use(router);
 };

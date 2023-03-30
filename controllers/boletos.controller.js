@@ -7,8 +7,8 @@ exports.list = (req, res) => {
         message: err.message || "Error al recuperar los datos",
       });
     else {
-      console.log(`Boletos.list $(data)`);
-      res.status(200).json(data);
+      //console.log(`Boletos.list $(data)`);
+      res.status(200).json(data.rows);
     }
   });
 };
@@ -21,9 +21,14 @@ exports.create = (req, res) => {
   }
 
   const newBoletos = new Boletos({
-    idBoletos: req.body.idBoletos,
-    idAsientos: req.body.idBoletos,
-    descripcion: req.body.descripcion,
+    //idBoletos: req.body.idBoletos,
+    idUsuario: req.body.idUsuario,
+    idAsientos: req.body.idAsientos,
+    idSecciones: req.body.idSecciones,
+    cantidad: req.body.cantidad,
+    costo_servicio: req.body.costo_servicio, 
+    precioBoleto: req.body.precioBoleto,
+    total: req.body.total,
     idEventos: req.body.idEventos,
   });
 
@@ -56,6 +61,31 @@ exports.actualizar = (req, res) => {
   });
 };
 
+exports.usuarioporboleto = (req, res) => {
+  Boletos.getBoletos(req,(err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error al recuperar los datos",
+      });
+    else {
+      //console.log(`Boletos.list $(data)`);
+      res.status(200).json(data.rows);
+    }
+  });
+};
+
+exports.boletoporevento = (req, res) => {
+  Boletos.getBoletosEvento(req,(err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error al recuperar los datos",
+      });
+    else {
+      //console.log(`Boletos.list $(data)`);
+      res.status(200).json(data.rows);
+    }
+  });
+};
 
 
 // exports.findAll = (req, res) => {
