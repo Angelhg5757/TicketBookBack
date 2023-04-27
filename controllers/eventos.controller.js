@@ -8,7 +8,7 @@ exports.listar = (req, res) => {
         });
       else {
         console.log(`Eventos.list $(data)`);
-        res.status(200).json(data);
+        res.status(200).json(data.rows);
       }
     });
   };

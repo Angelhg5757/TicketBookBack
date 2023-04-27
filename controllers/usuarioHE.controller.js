@@ -7,7 +7,7 @@ exports.listar = (req, res) => {
         message: err.message || "Error al listar las RedesHU",
       });
     } else {
-      res.status(200).send(data);
+      res.status(200).send(data.rows);
     }
   });
 };
