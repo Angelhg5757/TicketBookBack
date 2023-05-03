@@ -4,11 +4,11 @@ const {Client} = require('pg');
 //Crear conexion con posgresql
 //const con = new Client(process.env.DATABASE_URL);
  const con = new Client({
-    host: DATABASE_HOST,
-    user: DATABASE_USER,
-    password: DATABASE_PASSWORD,
-    database:DATABASE_DB,
-    port:DATABASE_PORT
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_DB,
+    port: process.env.DATABASE_PORT
 }); 
 /* const con = new Client({
     host:dbconfig.HOST,
