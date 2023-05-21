@@ -61,3 +61,16 @@ exports.eliminar = (req, res) => {
     else res.json(data);
   });
 };
+
+exports.eventosUsuario = (req, res) => {
+  Eventos.getEventoUsuario(req,(err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error al recuperar los datos",
+      });
+    else {
+      //console.log(`Boletos.list $(data)`);
+      res.status(200).json(data.rows);
+    }
+  });
+};
