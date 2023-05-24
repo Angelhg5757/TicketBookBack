@@ -71,4 +71,19 @@ Eventos.update = function (req, result) {
   });
 };
 
+// Eventos por usuario
+Eventos.getEventoUsuario = (req, result) => {
+  const id = parseInt(req.params.id);
+  sql.query('Select "eventos"."nombre", "eventos"."fecha", "eventos"."ciudad" from boletos INNER join "eventos" ON "boletos"."idEventos" = "eventos"."idEventos" where "boletos"."idUsuario" = $1', [id], (err, res) => {
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
+      return;
+    }
+
+    console.log("Boletos: ", res);
+    result(null, res);
+  });
+};
+
 module.exports = Eventos;

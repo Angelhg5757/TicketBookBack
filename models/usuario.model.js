@@ -128,25 +128,6 @@ Usuario.update = (req, result) => {
   );
 };
 
-// Usuario.updateStatus = (req, result) => {
-//   const id = parseInt(req.params.id);
-//   const estado = false;
-
-//   sql.query(
-//     'UPDATE "Usuario" SET "isActive" = $1 WHERE "idUsuario" = $2',
-//     [estado, id],
-//     (err, res) => {
-//       if (err) {
-//         console.log("Error: ", err);
-//         result(err, null);
-//         return;
-//       }
-//       console.log("Usuario: ", res);
-//       result(null, res);
-//     }
-//   );
-// };
-
 
 //Eliminar
 Usuario.delete = (req, result) => {

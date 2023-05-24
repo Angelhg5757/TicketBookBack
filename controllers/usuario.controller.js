@@ -119,23 +119,24 @@ exports.login = async (req, res) => {
         const nombre = usuario.nombre;
         const apePat = usuario.apePat;
         const apeMat = usuario.apeMat;
+        const telefono = usuario.telefono
         const correo = usuario.correo;
         const fechaNac = usuario.fechaNac;
         if (usuario.idRol == 1) {
           return res.status(200).send({
             // message: "Cliente", 
-            idUsuario, nombre, apePat, apeMat, correo, fechaNac
+            idUsuario, nombre, apePat, apeMat, telefono, correo, fechaNac
             
           });
         } else if (usuario.idRol == 2) {
           return res.status(201).send({
             // message: "Administrador", 
-            idUsuario, nombre, apePat, apeMat, correo, fechaNac
+            idUsuario, nombre, apePat, apeMat, telefono, correo, fechaNac
           });
         } else if ((usuario.idRol == 3)) {
           return res.status(202).send({
             // message: "SuperUsuario", 
-            idUsuario, nombre, apePat, apeMat, correo, fechaNac
+            idUsuario, nombre, apePat, apeMat, telefono, correo, fechaNac
           });
         }
       } else {
