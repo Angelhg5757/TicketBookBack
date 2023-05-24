@@ -10,7 +10,6 @@ module.exports = (app) => {
     const precio = require("../controllers/precio.controller");
     const secciones = require("../controllers/secciones.controller");
     const eventoHAHB = require("../controllers/eventosHAHB.controller");
-
     var router = require("express").Router();
     
     //router.post("/loginUser", usuario.postLogin);
@@ -35,8 +34,9 @@ module.exports = (app) => {
     router.post("/boletos/crear", boletos.create);
     router.get("/miseventos/:id", boletos.usuarioporboleto);
     router.get("/boletosEvento/:id", boletos.boletoporevento);
+    router.get("/boletosUsuario/:id", boletos.boletoporusuario);
     //router.put("/boletos/actualizar/:id", boletos.actualizar);
-    //router.delete("/boletos/eliminar/:id", boletos.eliminar);
+    router.delete("/boletos/eliminar/:id", boletos.eliminar);
 
     //Rutas de roles
     router.get("/roles/listar", roles.list);

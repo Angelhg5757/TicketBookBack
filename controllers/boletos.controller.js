@@ -87,6 +87,18 @@ exports.boletoporevento = (req, res) => {
   });
 };
 
+exports.boletoporusuario = (req, res) => {
+  Boletos.getBoletosPorUsuario(req,(err,data) =>{
+    if(err)
+      res.status(500).send({
+        message: err.message || "Error al mostrar los boletos por usuario",
+      });
+      else{
+        res.status(200).json(data.rows);
+      }
+  });
+};
+
 
 // exports.findAll = (req, res) => {
 //     Imagen.findAll()

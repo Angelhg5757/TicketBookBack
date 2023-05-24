@@ -101,5 +101,20 @@ Boletos.update = (req, result) => {
   });
 };
 
+//Boletos por usuario
+Boletos.getBoletosPorUsuario = (req, result) => {
+  const id = parseInt(req.params.id);
+  const query = 'Select * from boletos where idUsuario = $1';
+  const values = [req.body.idUsuario];
+  sql.query(query, values, (err,res) =>{
+    if(err){
+      console.log("Error al obtener los boletos del usuario:", err);
+      result(err,null);
+      return;
+    }
+    console.log("Boletos del usuario: ",res);
+    result(null, res); 
+  });
+};
 
 module.exports = Boletos;
