@@ -1,4 +1,5 @@
 const sql = require("./db.js");
+// const moment = require('moment');
 
 //Constructor
 const Eventos = function (eventos) {
@@ -81,9 +82,31 @@ Eventos.getEventoUsuario = (req, result) => {
       return;
     }
 
-    console.log("Boletos: ", res);
+    console.log("Eventos: ", res);
     result(null, res);
   });
 };
+
+
+Eventos.getEventoProximo = (result) => {
+  // const currentDate = moment().format('YYYY-MM-DD');
+  // const oneMonthBefore = moment().subtract(1, 'months').format('YYYY-MM-DD');
+  const fechaActual = new Date();
+
+  const fechaUnaSemanaDespues = new Date();
+  fechaUnaSemanaDespues.setDate(fechaActual.getDate() + 7);
+  
+  sql.query('SELECT "eventos".*, inmuebles.nombre FROM eventos INNER JOIN inmuebles ON inmuebles."idInmuebles" = eventos."idInmueble" where eventos.fecha BETWEEN $1 AND $2', [fechaActual, fechaUnaSemanaDespues], (err, res) => {
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
+      return;
+    }
+
+    console.log("Eventos: ", res);
+    result(null, res);
+  });
+};
+
 
 module.exports = Eventos;

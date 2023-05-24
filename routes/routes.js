@@ -47,6 +47,7 @@ module.exports = (app) => {
     router.put("/eventos/actualizar/:id", eventos.actualizar);
     router.delete("/eventos/eliminar/:id", eventos.eliminar);
     router.get("/eventos/usuario/:id", eventos.eventosUsuario);
+    router.get("/eventos/proximos", eventos.eventoProximo);
 
     //Rutas de usuario_has_boletos
     router.get("/usuarioH/listar", usuarioHB.listar);

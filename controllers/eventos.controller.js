@@ -74,3 +74,16 @@ exports.eventosUsuario = (req, res) => {
     }
   });
 };
+
+exports.eventoProximo = (req, res) => {
+  Eventos.getEventoProximo((err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error al recuperar los datos",
+      });
+    else {
+      // console.log(`Eventos.list $(data)`);
+      res.status(200).json(data.rows);
+    }
+  });
+};
