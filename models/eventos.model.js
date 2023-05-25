@@ -29,7 +29,7 @@ Eventos.create = (eventos, result) => {
 };
 //Obtener
 Eventos.getAll = (result) => {
-  let query = 'SELECT * FROM "eventos"';
+  let query = 'SELECT eventos."idEventos", eventos.nombre as eventos_nombre, eventos.descripcion, eventos.fecha, eventos.ciudad, eventos.imagen, inmuebles.nombre as inmueble_nombre FROM eventos INNER JOIN inmuebles ON inmuebles."idInmuebles" = eventos."idInmueble"';
 
   sql.query(query, (err, res) => {
     if (err) {
@@ -87,7 +87,7 @@ Eventos.getEventoUsuario = (req, result) => {
   });
 };
 
-
+// Eventos proximos
 Eventos.getEventoProximo = (result) => {
   const fechaActual = new Date();
   const fechaUnMesDespues = new Date();
