@@ -32,9 +32,9 @@ module.exports = (app) => {
     //Rutas de boletos
     router.get("/boletos/listar", boletos.list);
     router.post("/boletos/crear", boletos.create);
-    router.get("/miseventos/:id", boletos.usuarioporboleto);
+    router.get("/misboletos/:id", boletos.usuarioporboleto);
     router.get("/boletosEvento/:id", boletos.boletoporevento);
-    router.get("/boletosUsuario/:id", boletos.boletoporusuario);
+    router.get("/boletosUsuario/:id", boletos.boletoporusuario); // Metodo bueno jeje
     //router.put("/boletos/actualizar/:id", boletos.actualizar);
     router.delete("/boletos/eliminar/:id", boletos.eliminar);
 
