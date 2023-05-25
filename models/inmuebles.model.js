@@ -4,13 +4,12 @@ const sql = require("./db.js");
 const Inmuebles = function (inmuebles) {
   this.idInmuebles = inmuebles.idInmuebles;
   this.nombre = inmuebles.nombre;
-  this.capacidad = inmuebles.capacidad;
 };
 //Crear
 Inmuebles.create = (inmuebles, result) => {
   const text =
-    'INSERT INTO "inmuebles" ("nombre", "capacidad") VALUES ($1, $2)';
-  const values = [inmuebles.nombre, inmuebles.capacidad];
+    'INSERT INTO "inmuebles" ("nombre") VALUES ($1)';
+  const values = [inmuebles.nombre];
   sql.query(text, values, (err, res) => {
     if (err) {
       console.log("Error al crear: ", err);
@@ -53,8 +52,8 @@ Inmuebles.delete = (req, result) => {
 Inmuebles.update = function (req, result) {
   const id = parseInt(req.params.id);
   const text =
-    'UPDATE "inmuebles" SET "nombre" = $1, "capacidad" = $2 WHERE "idInmuebles" = $3';
-  const values = [req.body.nombre, req.body.capacidad, id];
+    'UPDATE "inmuebles" SET "nombre" = $1, WHERE "idInmuebles" = $2';
+  const values = [req.body.nombre, id];
   sql.query(text, values, function (err, res) {
     if (err) {
       console.log("Error al actualizar el evento", err);

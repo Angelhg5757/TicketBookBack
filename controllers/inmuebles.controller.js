@@ -24,7 +24,7 @@ exports.create = (req, res) => {
   const newInmuebles = new Inmuebles({
     idInmuebles: req.body.idInmuebles,
     nombre: req.body.nombre,
-    capacidad: req.body.capacidad
+    
   });
 
   Inmuebles.create(newInmuebles, (err, data) => {

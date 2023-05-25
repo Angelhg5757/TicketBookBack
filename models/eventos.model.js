@@ -89,14 +89,11 @@ Eventos.getEventoUsuario = (req, result) => {
 
 
 Eventos.getEventoProximo = (result) => {
-  // const currentDate = moment().format('YYYY-MM-DD');
-  // const oneMonthBefore = moment().subtract(1, 'months').format('YYYY-MM-DD');
   const fechaActual = new Date();
-
-  const fechaUnaSemanaDespues = new Date();
-  fechaUnaSemanaDespues.setDate(fechaActual.getDate() + 7);
+  const fechaUnMesDespues = new Date();
+  fechaUnMesDespues.setMonth(fechaActual.getMonth() + 1);
   
-  sql.query('SELECT "eventos".*, inmuebles.nombre FROM eventos INNER JOIN inmuebles ON inmuebles."idInmuebles" = eventos."idInmueble" where eventos.fecha BETWEEN $1 AND $2', [fechaActual, fechaUnaSemanaDespues], (err, res) => {
+  sql.query('SELECT eventos."idEventos", eventos.nombre as eventos_nombre, eventos.descripcion, eventos.fecha, eventos.ciudad, eventos.imagen, inmuebles.nombre as inmueble_nombre FROM eventos INNER JOIN inmuebles ON inmuebles."idInmuebles" = eventos."idInmueble" where eventos.fecha BETWEEN $1 AND $2', [fechaActual, fechaUnMesDespues], (err, res) => {
     if (err) {
       console.log("Error: ", err);
       result(err, null);
