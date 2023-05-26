@@ -58,8 +58,8 @@ Usuario.create = (usuario, result) => {
 
 //Obtener
 Usuario.getAll = (result) => {
-  let query = 'SELECT * FROM "usuario"';
-
+  //let query = 'SELECT * FROM "usuario"';
+  let query = 'SELECT usuario."idUsuario", usuario.nombre, usuario."apePat", usuario."apeMat", usuario.telefono, usuario.correo, usuario."password", usuario."fechaNac", roles.nombre as rol_nombre FROM "usuario" INNER Join roles ON roles."idRol" = "usuario"."idRol"';
   sql.query(query, (err, res) => {
     if (err) {
       console.log("Error: ", err);

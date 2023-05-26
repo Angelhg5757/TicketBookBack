@@ -131,9 +131,15 @@ Boletos.getBoletosPorUsuario = (req, result) => {
 };
 
 Boletos.getBoletosCrud = (req,result)=>{
-  const id = parseInt(req.params.id);
-  const query = 'Select * from boletos where "idUsuario" = $1';
-
-}
+  sql.query('select eventos.nombre as eventos_nombre, usuario.nombre, asientos.numero, asientos.seccion, precio.precio, boletos.descripcion from boletos inner join asientos ON asientos."idAsientos" = boletos."idAsientos" inner join eventos ON eventos."idEventos" = boletos."idEventos" inner join precio ON precio."idPrecio" = boletos."idPrecio" inner join usuario on usuario."idUsuario" = boletos."idUsuario"',(err,res) => {
+    if(err){
+      console.log("Error: ", err);
+      result(err,null);
+      return;
+    }
+    console.log("Boletos: ",res);
+    result(null,res);
+  });
+};
 
 module.exports = Boletos;

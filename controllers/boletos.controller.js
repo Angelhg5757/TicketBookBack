@@ -99,6 +99,17 @@ exports.boletoporusuario = (req, res) => {
   });
 };
 
+exports.crudBoletos = (req, res) =>{
+  Boletos.getBoletosCrud(req,(err,data) =>{
+    if(err)
+      res.status(500).send({
+        message: err.message || "Error al mostrar los boletos",
+      });
+      else{
+        res.status(200).json(data.rows);
+      }
+  });
+}
 
 // exports.findAll = (req, res) => {
 //     Imagen.findAll()

@@ -38,6 +38,7 @@ module.exports = (app) => {
     router.get("/boletosUsuario/:id", boletos.boletoporusuario); // Metodo bueno jeje
     //router.put("/boletos/actualizar/:id", boletos.actualizar);
     router.delete("/boletos/eliminar/:id", boletos.eliminar);
+    router.get("/boletoscrud", boletos.crudBoletos);
 
     //Rutas de roles
     router.get("/roles/listar", roles.list);
