@@ -1,4 +1,5 @@
 const sql = require("./db.js");
+// const moment = require('moment');
 
 //Constructor
 const Eventos = function (eventos) {
@@ -28,7 +29,7 @@ Eventos.create = (eventos, result) => {
 };
 //Obtener
 Eventos.getAll = (result) => {
-  let query = 'SELECT * FROM "eventos"';
+  let query = 'SELECT eventos."idEventos", eventos.nombre as eventos_nombre, eventos.descripcion, eventos.fecha, eventos.ciudad, eventos.imagen, inmuebles.nombre as inmueble_nombre FROM eventos INNER JOIN inmuebles ON inmuebles."idInmuebles" = eventos."idInmueble"';
 
   sql.query(query, (err, res) => {
     if (err) {
@@ -81,9 +82,28 @@ Eventos.getEventoUsuario = (req, result) => {
       return;
     }
 
-    console.log("Boletos: ", res);
+    console.log("Eventos: ", res);
     result(null, res);
   });
 };
+
+// Eventos proximos
+Eventos.getEventoProximo = (result) => {
+  const fechaActual = new Date();
+  const fechaUnMesDespues = new Date();
+  fechaUnMesDespues.setMonth(fechaActual.getMonth() + 1);
+  
+  sql.query('SELECT eventos."idEventos", eventos.nombre as eventos_nombre, eventos.descripcion, eventos.fecha, eventos.ciudad, eventos.imagen, inmuebles.nombre as inmueble_nombre FROM eventos INNER JOIN inmuebles ON inmuebles."idInmuebles" = eventos."idInmueble" where eventos.fecha BETWEEN $1 AND $2', [fechaActual, fechaUnMesDespues], (err, res) => {
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
+      return;
+    }
+
+    console.log("Eventos: ", res);
+    result(null, res);
+  });
+};
+
 
 module.exports = Eventos;

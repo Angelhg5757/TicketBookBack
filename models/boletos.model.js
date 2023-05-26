@@ -102,6 +102,21 @@ Boletos.update = (req, result) => {
 };
 
 //Boletos por usuario
+// Boletos.getBoletosPorUsuario = (req, result) => {
+//   const id = parseInt(req.params.id);
+//   const query = 'Select asientos.numero, eventos.ciudad, eventos.descripcion, asientos.seccion, eventos.fecha, eventos.imagen, eventos.nombre, precio.precio from boletos inner join asientos ON asientos."idAsientos" = boletos."idAsientos" inner join eventos ON eventos."idEventos" = boletos."idEventos" inner join precio ON precio."idPrecio" = boletos."idPrecio" where boletos."idUsuario" = $1';
+//   const values = [req.body.idUsuario];
+//   sql.query(query, values, (err,res) =>{
+//     if(err){
+//       console.log("Error al obtener los boletos del usuario:", err);
+//       result(err,null);
+//       return;
+//     }
+//     console.log("Boletos del usuario: ",res);
+//     result(null, res); 
+//   });
+// };
+
 Boletos.getBoletosPorUsuario = (req, result) => {
   const id = parseInt(req.params.id);
   const query = 'Select * from boletos where "idUsuario" = $1';
@@ -110,10 +125,14 @@ Boletos.getBoletosPorUsuario = (req, result) => {
     if(err){
       console.log("Error al obtener los boletos del usuario:", err);
       result(err,null);
+  sql.query('Select inmuebles.nombre as inmueble_nombre, asientos.numero, eventos.ciudad, eventos.descripcion, asientos.seccion, eventos.fecha, eventos.imagen, eventos.nombre as eventos_nombre, precio.precio from boletos inner join asientos ON asientos."idAsientos" = boletos."idAsientos" inner join eventos ON eventos."idEventos" = boletos."idEventos" inner join precio ON precio."idPrecio" = boletos."idPrecio" inner join inmuebles ON inmuebles."idInmuebles" = eventos."idInmueble" where boletos."idUsuario" = $1', [id], (err, res) => {
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
       return;
     }
-    console.log("Boletos del usuario: ",res);
-    result(null, res); 
+    console.log("Boletos: ", res);
+    result(null, res);
   });
 };
 
