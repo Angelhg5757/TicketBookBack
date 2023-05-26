@@ -132,7 +132,6 @@ Usuario.update = (req, result) => {
 //Eliminar
 Usuario.delete = (req, result) => {
   const id = req.params.id;
-
   sql.query(
     'DELETE FROM "usuario" WHERE "idUsuario" = $1',
     [id],

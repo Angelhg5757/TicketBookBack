@@ -75,7 +75,7 @@ Boletos.create = (boletos, result) => {
 Boletos.delete = (req, result) => {
   const id = parseInt(req.params.id);
 
-  sql.query('DELETE FROM "boletos" WHERE "idUsuario" = $1', [id], (err, res) => {
+  sql.query('DELETE FROM "boletos" WHERE "idBoletos" = $1', [id], (err, res) => {
     if (err) {
       console.log("Error: ", err);
       result(err, null);
@@ -131,7 +131,7 @@ Boletos.getBoletosPorUsuario = (req, result) => {
 };
 
 Boletos.getBoletosCrud = (req,result)=>{
-  sql.query('select eventos.nombre as eventos_nombre, usuario.nombre, asientos.numero, asientos.seccion, precio.precio, boletos.descripcion from boletos inner join asientos ON asientos."idAsientos" = boletos."idAsientos" inner join eventos ON eventos."idEventos" = boletos."idEventos" inner join precio ON precio."idPrecio" = boletos."idPrecio" inner join usuario on usuario."idUsuario" = boletos."idUsuario"',(err,res) => {
+  sql.query('select boletos."idBoletos",eventos.nombre as eventos_nombre, usuario.nombre, asientos.numero, asientos.seccion, precio.precio, boletos.descripcion from boletos inner join asientos ON asientos."idAsientos" = boletos."idAsientos" inner join eventos ON eventos."idEventos" = boletos."idEventos" inner join precio ON precio."idPrecio" = boletos."idPrecio" inner join usuario on usuario."idUsuario" = boletos."idUsuario"',(err,res) => {
     if(err){
       console.log("Error: ", err);
       result(err,null);

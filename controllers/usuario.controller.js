@@ -113,6 +113,7 @@ exports.borrar = (req, res) => {
         message: err.message || "Error al borrar el Usuario.",
       });
     } else {
+      console.log(res);
       res.status(200).json(data);
     }
   });
