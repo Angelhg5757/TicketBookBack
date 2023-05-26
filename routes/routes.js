@@ -22,6 +22,7 @@ module.exports = (app) => {
     router.put("/usuario/actualizarStatus/:id", usuario.actualizarStatus);
     router.delete("/usuario/eliminar/:id", usuario.borrar);
     router.post("/usuario/log", usuario.login);
+    router.get("/usuario/nombre/:id", usuario.obtenerNombre);
 
     //Rutas de asientos
     router.get("/asientos/listar", asientos.list);

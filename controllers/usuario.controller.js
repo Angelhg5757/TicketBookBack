@@ -82,6 +82,18 @@ exports.actualizarStatus = (req, res) => {
   });
 };
 
+exports.obtenerNombre = (req,res) =>{
+  Usuario.findNombre(req, (err,data)=>{
+    if(err){
+      res.status(500).json({
+        message: err.message || "Error al obtener el Usuario.",
+      });
+    } else{
+      res.status(200).json(data);
+    }
+  });
+};
+
 // exports.actualizarStatus2 = (req, res) => {
 //   Usuario.updateStatus2(req, (err, data) => {
 //     if (err) {

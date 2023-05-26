@@ -154,7 +154,22 @@ Usuario.findOne = async (correo) => {
   const { rows } = await sql.query(query, values);
   return rows[0];
 };
-
+//Nombre por id
+Usuario.findNombre = (req, result) => {
+    const id = req.params.id;
+    sql.query(
+      'SELECT "nombre" FROM "usuario" where "idUsuario" = $1',
+      [id],
+      (err, res) => {
+        if (err) {
+          console.log("Error: ", err);
+          result(err, null);
+          return;
+        }
+        result(null, res);
+      }
+    );
+}
 
 module.exports = Usuario;
 
