@@ -89,6 +89,7 @@ Usuario.getById = (req, result) => {
     }
   );
 };
+
 //Actualizar
 Usuario.update = (req, result) => {
   const id = parseInt(req.params.id);
@@ -100,8 +101,9 @@ Usuario.update = (req, result) => {
     correo,
     password,
     fechaNac,
-    idRol,
+    idRol
   } = req.body;
+  const hashedPassword = bcrypt.hashSync(password, 10);
 
   sql.query(
     'UPDATE "usuario" SET "nombre" = $1, "apePat" = $2, "apeMat" = $3, "telefono" = $4, "correo" = $5, "password" = $6, "fechaNac" = $7, "idRol" = $8 WHERE "idUsuario" = $9',
@@ -111,7 +113,7 @@ Usuario.update = (req, result) => {
       apeMat,
       telefono,
       correo,
-      password,
+      hashedPassword,
       fechaNac,
       idRol,
       id,
@@ -127,6 +129,99 @@ Usuario.update = (req, result) => {
     }
   );
 };
+
+//Actualizar para perfil
+const moment = require("moment");
+
+Usuario.updatePerfil = (req, result) => {
+  const id = parseInt(req.params.id);
+  const {
+    nombre,
+    apePat,
+    apeMat,
+    telefono,
+    // correo,
+    password,
+    fechaNac,
+  } = req.body;
+
+  // Verificar si el campo de contraseña se proporcionó
+  if (password) {
+    // Si se proporcionó una nueva contraseña, generar el hash
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+    // Formatear la fecha en el formato deseado (YYYY-MM-DD)
+    const formattedFechaNac = moment(fechaNac, "DD-MM-YYYY").format("YYYY-MM-DD");
+
+    // Realizar la actualización de todos los campos, incluyendo la nueva contraseña y la fecha formateada
+    sql.query(
+      'UPDATE "usuario" SET "nombre" = $1, "apePat" = $2, "apeMat" = $3, "telefono" = $4, "password" = $5, "fechaNac" = $6 WHERE "idUsuario" = $7',
+      [
+        nombre,
+        apePat,
+        apeMat,
+        telefono,
+        // correo,
+        hashedPassword,
+        formattedFechaNac,
+        id,
+      ],
+      (err, res) => {
+        if (err) {
+          console.log("Error: ", err);
+          result(err, null);
+          return;
+        }
+        console.log("Usuario: ", res);
+        result(null, res);
+      }
+    );
+  } else {
+    // Si no se proporcionó una nueva contraseña, obtener la contraseña actual del usuario
+    sql.query(
+      'SELECT "password" FROM "usuario" WHERE "idUsuario" = $1',
+      [id],
+      (err, res) => {
+        if (err) {
+          console.log("Error: ", err);
+          result(err, null);
+          return;
+        }
+
+        // Obtener la contraseña actual del usuario
+        const hashedPassword = res.rows[0].password;
+
+        // Formatear la fecha en el formato deseado (YYYY-MM-DD)
+        const formattedFechaNac = moment(fechaNac, "DD-MM-YYYY").format("YYYY-MM-DD");
+
+        // Realizar la actualización de todos los campos, manteniendo la contraseña actual y usando la fecha formateada
+        sql.query(
+          'UPDATE "usuario" SET "nombre" = $1, "apePat" = $2, "apeMat" = $3, "telefono" = $4, "password" = $5, "fechaNac" = $6 WHERE "idUsuario" = $7',
+          [
+            nombre,
+            apePat,
+            apeMat,
+            telefono,
+            // correo,
+            hashedPassword,
+            formattedFechaNac,
+            id,
+          ],
+          (err, res) => {
+            if (err) {
+              console.log("Error: ", err);
+              result(err, null);
+              return;
+            }
+            console.log("Usuario: ", res);
+            result(null, res);
+          }
+        );
+      }
+    );
+  }
+};
+
 
 
 //Eliminar
@@ -201,24 +296,4 @@ module.exports = Usuario;
 //     console.log("Usuario guardado!", res);
 //     result(null, res);
 //   });
-// };
-
-//Actualizar conforme al periodo de donación
-// Usuario.updateStatus2 = (req, result) => {
-//   const id = parseInt(req.params.id);
-//   const estado = true;
-
-//   sql.query(
-//     'UPDATE "Usuario" SET "isActive" = $1 WHERE "idUsuario" = $2',
-//     [estado, id],
-//     (err, res) => {
-//       if (err) {
-//         console.log("Error: ", err);
-//         result(err, null);
-//         return;
-//       }
-//       console.log("Usuario: ", res);
-//       result(null, res);
-//     }
-//   );
 // };

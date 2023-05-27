@@ -12,13 +12,13 @@ module.exports = (app) => {
     const eventoHAHB = require("../controllers/eventosHAHB.controller");
     var router = require("express").Router();
     
-    //router.post("/loginUser", usuario.postLogin);
 
     //Rutas de usuario
     router.get("/usuario/listar", usuario.list);
     router.get("/usuario/listar/:id", usuario.listID);
     router.post("/usuario/crear", usuario.create);
     router.put("/usuario/actualizar/:id", usuario.actualizar);
+    router.put("/usuario/actualizarPerfil/:id", usuario.actualizarPerfil);
     router.put("/usuario/actualizarStatus/:id", usuario.actualizarStatus);
     router.delete("/usuario/eliminar/:id", usuario.borrar);
     router.post("/usuario/log", usuario.login);

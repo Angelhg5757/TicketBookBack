@@ -94,17 +94,22 @@ exports.obtenerNombre = (req,res) =>{
   });
 };
 
-// exports.actualizarStatus2 = (req, res) => {
-//   Usuario.updateStatus2(req, (err, data) => {
-//     if (err) {
-//       res.status(500).json({
-//         message: err.message || "Error al actualizar el Usuario."
-//     });
-//   } else {
-//     res.status(200).json(data);
-//   }
-// });
-// };
+exports.actualizarPerfil = (req, res) => {
+  Usuario.updatePerfil(req, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        success: false,
+        message: err.message || "Error al actualizar el Usuario.",
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        message: "Usuario actualizado exitosamente.",
+      });
+    }
+  });
+};
+
 
 exports.borrar = (req, res) => {
   Usuario.delete(req, (err, data) => {
