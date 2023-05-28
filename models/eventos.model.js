@@ -59,8 +59,8 @@ Eventos.delete = (req, result) => {
 Eventos.update = function (req, result) {
   const id = parseInt(req.params.id);
   const text =
-    'UPDATE "eventos" SET "idPrecio" =$1, "idInmueble" = $2, "ciudad" = $3, "fecha" = $4, "horario" = $5, "nombre" = $6, "descripcion" = $7 WHERE "idEventos" = $8';
-  const values = [req.body.idPrecio, req.body.idInmueble, req.body.ciudad, req.body.fecha, req.body.horario, req.body.nombre, req.body.descripcion, id];
+    'UPDATE "eventos" SET descripcion =$1, "idInmueble" = (Select "idInmuebles" from inmuebles where nombre = $2), "ciudad" = $3, "fecha" = $4, nombre= $5  WHERE "idEventos" = $6';
+  const values = [req.body.descripcion, req.body.inmueble_nombre, req.body.ciudad,req.body.fecha, req.body.eventos_nombre, id];
   sql.query(text, values, function (err, res) {
     if (err) {
       console.log("Error al actualizar el evento", err);
