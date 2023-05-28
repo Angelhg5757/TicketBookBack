@@ -58,3 +58,28 @@ exports.actualizar = (req, res) => {
     }
   });
 };
+//Get secciones
+exports.getSecciones = (req, res) => {
+  Asientos.secciones(req,(err, data)=>{
+    if (err) {
+      req.status(500).json({
+        message: err.message || "Error al obtener las secciones.",
+      });
+  }else{
+    res.status(200).json(data);
+  }
+});
+}
+
+//Get asientos por seccion
+exports.getAsientosSeccion = (req, res) => {
+  Asientos.asientosporseccion(req,(err, data)=>{
+    if (err) {
+      req.status(500).json({
+        message: err.message || "Error al obtener los asientos.",
+      });
+  }else{
+    res.status(200).json(data);
+  }
+});
+}

@@ -265,6 +265,17 @@ Usuario.findNombre = (req, result) => {
     );
 }
 
+Usuario.getNombres = (req, result)=>{
+  sql.query('Select "nombre" from "usuario"',(err, res)=>{
+    if(err){
+      console.log("Error: ", err);
+      result(err, null);
+      return;
+    }
+    result(null, res);
+  })
+}
+
 module.exports = Usuario;
 
 //Crear

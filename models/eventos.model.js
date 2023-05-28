@@ -104,6 +104,17 @@ Eventos.getEventoProximo = (result) => {
     result(null, res);
   });
 };
-
+//Nombres de eventos
+Eventos.getNombres = (result)=>{
+  sql.query('Select nombre from eventos',(err, res) => {
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
+      return;
+    }
+    console.log("Eventos: ", res);
+    result(null, res);
+  });
+};
 
 module.exports = Eventos;

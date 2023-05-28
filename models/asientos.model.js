@@ -79,6 +79,30 @@ Asientos.update = (req, result) => {
   });
 };
 
+//Secciones en asientos
+Asientos.secciones = (req, result) => {
+  sql.query('SELECT seccion as nombre FROM asientos group by nombre', (err, res) => {
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
+      return;
+    }
+    result(null, res);
+  });
+};
+
+//Asientos por seccion
+Asientos.asientosporseccion = (req,result)=>{
+  const id = req.params.id;
+  sql.query('select numero as numas from asientos where seccion = $1', [id],(err,res)=>{
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
+      return;
+    }
+    result(null, res);
+  });
+};
 
 
 module.exports = Asientos;

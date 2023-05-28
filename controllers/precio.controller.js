@@ -57,3 +57,14 @@ exports.eliminar = (req, res) => {
     else res.json(data);
   });
 };
+exports.getPrecio =(req,res) =>{
+  Precio.getPrecios((err,data) =>{
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Error al actualizar",
+      });
+    } else {
+      res.status(200).send(data);
+    }
+  });
+};

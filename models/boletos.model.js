@@ -142,4 +142,39 @@ Boletos.getBoletosCrud = (req,result)=>{
   });
 };
 
+//Actualizar boletos
+Boletos.actualizarAnidado = (req, result) => {
+  const id = req.params.id;
+  const {
+    numero,
+    seccion,
+    eventos_nombre,
+    precio,
+    nombre,
+    descripcion,
+  } = req.body;
+  
+  const query = `
+    UPDATE "boletos" 
+    SET 
+      "idAsientos" = (SELECT "idAsientos" FROM asientos WHERE numero = $1 AND seccion = $2 LIMIT 1), 
+      "idEventos" = (SELECT "idEventos" FROM eventos WHERE nombre = $3), 
+      "idPrecio" = (SELECT "idPrecio" FROM precio WHERE precio = $4), 
+      "idUsuario" = (SELECT "idUsuario" FROM Usuario WHERE nombre = $5 LIMIT 1), 
+      descripcion = $6 
+    WHERE 
+      "idBoletos" = $7
+  `;
+
+  sql.query(query, [numero, seccion, eventos_nombre, precio, nombre, descripcion, id], (err, res) => {
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
+      return;
+    }
+    console.log("Actualizado! ", res);
+    result(null, res);
+  });
+};
+
 module.exports = Boletos;

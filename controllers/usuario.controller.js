@@ -94,6 +94,18 @@ exports.obtenerNombre = (req,res) =>{
   });
 };
 
+exports.getNombres = (req,res)=>{
+  Usuario.getNombres(req,(err,data)=>{
+    if(err){
+      res.status(500).json({
+        message: err.message || "Error al obtener el Usuario.",
+      });
+    } else{
+      res.status(200).json(data);
+    }
+  });
+};
+
 exports.actualizarPerfil = (req, res) => {
   Usuario.updatePerfil(req, (err, data) => {
     if (err) {

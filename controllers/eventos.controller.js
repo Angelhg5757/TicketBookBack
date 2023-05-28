@@ -87,3 +87,15 @@ exports.eventoProximo = (req, res) => {
     }
   });
 };
+
+exports.getNombres = (req, res) => {
+  Eventos.getNombres((err,data)=>{
+    if(err)
+    res.status(500).send({
+      message: err.message
+    });
+    else{
+      res.status(200).json(data);
+    }
+  });
+};

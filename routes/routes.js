@@ -23,12 +23,16 @@ module.exports = (app) => {
     router.delete("/usuario/eliminar/:id", usuario.borrar);
     router.post("/usuario/log", usuario.login);
     router.get("/usuario/nombre/:id", usuario.obtenerNombre);
+    router.get("/usuario/todos",usuario.getNombres);
 
     //Rutas de asientos
     router.get("/asientos/listar", asientos.list);
     router.post("/asientos/crear", asientos.create);
     router.put("/asientos/actualizar/:id", asientos.actualizar);
     router.delete("/asientos/eliminar/:id", asientos.eliminar);
+    router.get("/asientos/secciones", asientos.getSecciones);
+    router.get("/asientosseccion/:id", asientos.getAsientosSeccion);
+
 
     //Rutas de boletos
     router.get("/boletos/listar", boletos.list);
@@ -39,6 +43,7 @@ module.exports = (app) => {
     //router.put("/boletos/actualizar/:id", boletos.actualizar);
     router.delete("/boletos/eliminar/:id", boletos.eliminar);
     router.get("/boletoscrud", boletos.crudBoletos);
+    router.put("/boletos/actualizando/:id",boletos.actualizarAnidado);//Metodo bueno jeje
 
     //Rutas de roles
     router.get("/roles/listar", roles.list);
@@ -50,6 +55,7 @@ module.exports = (app) => {
     router.delete("/eventos/eliminar/:id", eventos.eliminar);
     router.get("/eventos/usuario/:id", eventos.eventosUsuario);
     router.get("/eventos/proximos", eventos.eventoProximo);
+    router.get("/eventos/todos", eventos.getNombres);
 
     //Rutas de usuario_has_boletos
     router.get("/usuarioH/listar", usuarioHB.listar);
@@ -69,6 +75,7 @@ module.exports = (app) => {
     // router.delete("/inmuebles/eliminar/:id", inmuebles.eliminar);
 
     router.get("/precio/listar", precio.listar);
+    router.get("/precio/todos", precio.getPrecio);
     // router.post("/precio/crear", precio.create);
     // router.put("/precio/actualizar/:id", precio.actualizar);
     // router.delete("/precio/eliminar/:id", precio.eliminar);

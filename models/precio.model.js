@@ -66,4 +66,17 @@ Precio.update = function (req, result) {
   });
 };
 
+//Precios
+Precio.getPrecios = (result) => {
+  sql.query("Select precio from precio",(err, res) => {
+    if (err) {
+      console.log("Error al obtener el precio", err);
+      result(err, null);
+      return;
+    }
+    console.log("Precios obtenidos",res);
+    result(null, res);
+  });
+};
+
 module.exports = Precio;
