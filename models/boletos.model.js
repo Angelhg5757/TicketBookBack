@@ -210,4 +210,17 @@ Boletos.agregarAnidado = (req, result) => {
   });
 };
 
+
+Boletos.getImage =(req, result)=>{
+  const nombre = req.params.id;
+  sql.query('select imagen from eventos where nombre = $1', [nombre], (err, res) => {
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
+      return;
+    }
+    console.log("Imagen: ", res);
+    result(null, res);
+  });
+}
 module.exports = Boletos;

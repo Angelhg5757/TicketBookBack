@@ -137,6 +137,18 @@ exports.crearAnidado = (req, res) => {
   });
 };
 
+exports.getImagen = (req,res)=>{
+  Boletos.getImage(req, (err,data)=>{
+    if(err){
+      res.status(500).send({
+        message:err.message
+      });
+    }else{
+      res.status(200).json(data.rows);
+    }
+  });
+};
+
 // exports.findAll = (req, res) => {
 //     Imagen.findAll()
 //         .then(data => {

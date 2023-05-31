@@ -45,8 +45,9 @@ module.exports = (app) => {
     router.get("/boletoscrud", boletos.crudBoletos);
     router.put("/boletos/actualizando/:id",boletos.actualizarAnidado);//Metodo bueno jeje
     router.post("/boletos/creando", boletos.crearAnidado);
+    router.get("/boletos/imagen/:id", boletos.getImagen);
 
-
+1
     //Rutas de roles
     router.get("/roles/listar", roles.list);
     
