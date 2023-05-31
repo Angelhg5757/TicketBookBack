@@ -44,6 +44,8 @@ module.exports = (app) => {
     router.delete("/boletos/eliminar/:id", boletos.eliminar);
     router.get("/boletoscrud", boletos.crudBoletos);
     router.put("/boletos/actualizando/:id",boletos.actualizarAnidado);//Metodo bueno jeje
+    router.post("/boletos/creando", boletos.crearAnidado);
+
 
     //Rutas de roles
     router.get("/roles/listar", roles.list);

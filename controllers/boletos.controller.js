@@ -124,6 +124,19 @@ exports.actualizarAnidado = (req, res) => {
   });
 };
 
+//Crear anidado
+exports.crearAnidado = (req, res) => {
+  Boletos.agregarAnidado(req, (err,data)=>{
+    if(err){
+      res.status(500).send({
+        message: err.message,
+      });
+    }else{
+      res.status(200).json(data.rows);
+    }
+  });
+};
+
 // exports.findAll = (req, res) => {
 //     Imagen.findAll()
 //         .then(data => {

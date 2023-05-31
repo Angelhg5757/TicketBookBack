@@ -177,4 +177,37 @@ Boletos.actualizarAnidado = (req, result) => {
   });
 };
 
+//Crear boleto anidado
+Boletos.agregarAnidado = (req, result) => {
+  const {
+    numero,
+    seccion,
+    eventos_nombre,
+    precio,
+    nombre,
+    descripcion,
+  } = req.body;
+  
+  const query = `
+  INSERT INTO "boletos" ("idAsientos", "idEventos", "idPrecio", "idUsuario", "descripcion")
+  VALUES (
+    (SELECT "idAsientos" FROM asientos WHERE numero = $1 AND seccion = $2 LIMIT 1),
+    (SELECT "idEventos" FROM eventos WHERE nombre = $3 LIMIT 1),
+    (SELECT "idPrecio" FROM precio WHERE precio = $4 LIMIT 1),
+    (SELECT "idUsuario" FROM Usuario WHERE nombre = $5 LIMIT 1),
+    $6
+  );
+  `;
+
+  sql.query(query, [numero, seccion, eventos_nombre, precio, nombre, descripcion], (err, res) => {
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
+      return;
+    }
+    console.log("Boleto creado! ", res);
+    result(null, res);
+  });
+};
+
 module.exports = Boletos;
