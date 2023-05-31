@@ -46,6 +46,7 @@ module.exports = (app) => {
     router.put("/boletos/actualizando/:id",boletos.actualizarAnidado);//Metodo bueno jeje
     router.post("/boletos/creando", boletos.crearAnidado);
     router.get("/boletos/imagen/:id", boletos.getImagen);
+    router.post("/boletos/compra", boletos.comprarBoleto);
 
 1
     //Rutas de roles

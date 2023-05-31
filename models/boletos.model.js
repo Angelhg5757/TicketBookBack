@@ -223,4 +223,33 @@ Boletos.getImage =(req, result)=>{
     result(null, res);
   });
 }
+
+Boletos.comprarBoleto = (req,result)=>{
+  const {
+    numero,
+    seccion,
+    eventos_nombre,
+    precio,
+    idUsuario,
+  } = req.body;
+  const query = `
+  insert into boletos ("idAsientos","idEventos","idPrecio","idUsuario",descripcion) values (
+    (SELECT "idAsientos" FROM asientos WHERE numero = $1 AND seccion = $2 LIMIT 1),
+    (SELECT "idEventos" FROM eventos WHERE nombre = $3 LIMIT 1),
+    (SELECT "idPrecio" FROM precio WHERE precio = $4 LIMIT 1),
+    $5,
+    'boleto'
+  )
+  `;
+
+  sql.query(query, [numero, seccion, eventos_nombre, precio, idUsuario], (err, res) => {
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
+      return;
+    }
+    console.log("Boleto creado! ", res);
+    result(null, res);
+  });
+};
 module.exports = Boletos;
