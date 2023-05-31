@@ -15,7 +15,7 @@ const Eventos = function (eventos) {
 //Crear
 Eventos.create = (eventos, result) => {
   const text =
-    'INSERT INTO "eventos" ("idPrecio", "idInmueble", "ciudad", "fecha", "horario", "nombre", "descripcion") VALUES ($1, $2, $3, $4, $5, $6, $7)';
+    'INSERT INTO "eventos" ("idPrecio", "idInmueble", "ciudad", "fecha", "horario", "nombre", "descripcion") VALUES ($1, $2, $3, $4, $5, $6, $7)'
   const values = [eventos.idPrecio, eventos.idInmueble, eventos.ciudad, eventos.fecha, eventos.horario, eventos.nombre, eventos.descripcion];
   sql.query(text, values, (err, res) => {
     if (err) {
@@ -27,6 +27,34 @@ Eventos.create = (eventos, result) => {
     result(null, res);
   });
 };
+
+
+Eventos.crearCrud = function (req, result) {
+  const query =
+    `INSERT INTO "eventos" (descripcion, "idInmueble", ciudad, fecha, "nombre", imagen)
+    VALUES ($1, (SELECT "idInmuebles" FROM inmuebles WHERE nombre = $2), $3, $4, $5, $6)`
+  const values = [
+    req.body.descripcion,
+    req.body.inmueble_nombre,
+    req.body.ciudad,
+    req.body.fecha,
+    req.body.eventos_nombre,
+    req.body.imagen
+  ];
+
+  sql.query(query, values, function (err, res) {
+    if (err) {
+      console.log("Error al insertar el evento", err);
+      result(err, null);
+      return;
+    }
+
+    console.log("Evento insertado correctamente");
+    result(null, res);
+  });
+};
+
+
 //Obtener
 Eventos.getAll = (result) => {
   let query = 'SELECT eventos."idEventos", eventos.nombre as eventos_nombre, eventos.descripcion, eventos.fecha, eventos.ciudad, eventos.imagen, inmuebles.nombre as inmueble_nombre FROM eventos INNER JOIN inmuebles ON inmuebles."idInmuebles" = eventos."idInmueble" order by eventos."idEventos"';

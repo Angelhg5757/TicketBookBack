@@ -39,6 +39,19 @@ exports.create = (req, res) => {
       else res.status(200).json(data);
     });
   };
+
+  exports.crearNuevo = (req, res) => {
+    Eventos.crearCrud(req, (err, data) => {
+      if (err) {
+        res.status(500).json({
+          message: err.message || "Error al actualizar.",
+        });
+      } else {
+        res.status(200).json(data);
+      }
+    });
+};
+
 //Actualizar
 exports.actualizar = (req, res) => {
     Eventos.update(req, (err, data) => {
