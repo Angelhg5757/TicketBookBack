@@ -50,7 +50,8 @@ module.exports = (app) => {
     
     //Rutas de eventos
     router.get("/eventos/listar", eventos.listar);
-    router.post("/eventos/crear", eventos.create);
+    // router.post("/eventos/crear", eventos.create);
+    router.post("/eventos/crear", eventos.crearNuevo);
     router.put("/eventos/actualizar/:id", eventos.actualizar);
     router.delete("/eventos/eliminar/:id", eventos.eliminar);
     router.get("/eventos/usuario/:id", eventos.eventosUsuario);
